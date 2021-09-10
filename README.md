@@ -80,4 +80,14 @@ https://code-live.ru/post/cpp-http-server-over-sockets/
 
 https://code.google.com/archive/p/mongoose/
 
+https://habr.com/ru/company/infopulse/blog/415259/
+  
+https://developer.mozilla.org/ru/docs/Web/HTTP 
+  
+https://www.youtube.com/watch?v=A4y97MTqO6c 
 
+https://www.youtube.com/watch?v=YwHErWJIh6Y
+
+https://medium.com/from-the-scratch/http-server-what-do-you-need-to-know-to-build-a-simple-http-server-from-scratch-d1ef8945e4fa 
+
+https://www.youtube.com/watch?v=_vAjHdh92YU
