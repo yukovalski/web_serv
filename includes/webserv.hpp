@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 18:18:16 by sgath             #+#    #+#             */
-/*   Updated: 2021/09/11 19:13:33 by sgath            ###   ########.fr       */
+/*   Updated: 2021/09/11 20:20:18 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 #include <iostream>
 #include <string>
+#include <list>
+#include <signal.h>
+#include <sys/socket.h>
+
+//class
 #include "../srcs/Server.hpp"
 
 // Colors

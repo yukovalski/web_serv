@@ -211,10 +211,25 @@ HTTP является фундаментом для передачи данны�
 
 [`Изучение С++. Часть 2. Уроки С++`](https://www.youtube.com/watch?v=zsyXZLJQ_Dg)
 
+[`C++ Web Server from Scratch | Part 1: Creating a Socket Object`](https://www.youtube.com/watch?v=YwHErWJIh6Y)
 
 ---
 
 [` SSL Programming Tutorial`](https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c04622320) .................................59
+
+[`HTTP учебник`](https://developer.mozilla.org/ru/docs/Web/HTTP )
+
+[`select / poll / epoll: практическая разница`](https://habr.com/ru/company/infopulse/blog/415259/)
+
+[`Mongoose - easy to use web server`](https://code.google.com/archive/p/mongoose/)
+
+[`Веб-сервер на C++ и сокетах`](https://code-live.ru/post/cpp-http-server-over-sockets/)
+
+[`WebServer как тестовое задание`](https://habr.com/ru/post/152345/)
+
+[`+ forum`](http://rsdn.org/forum/job/4795893.flat)
+
+[`HTTP Server: Everything you need to know to Build a simple HTTP server from scratch`](https://medium.com/from-the-scratch/http-server-what-do-you-need-to-know-to-build-a-simple-http-server-from-scratch-d1ef8945e4fa)
 
 ---
 
@@ -222,21 +237,13 @@ https://adrienblanc.com/projects/42/webserv
 
 http://dwise1.net/pgm/sockets/blocking.html
 
-https://habr.com/ru/post/152345/
 
-http://rsdn.org/forum/job/4795893.flat
 
-https://code-live.ru/post/cpp-http-server-over-sockets/
 
-https://code.google.com/archive/p/mongoose/
 
-https://habr.com/ru/company/infopulse/blog/415259/
   
-https://developer.mozilla.org/ru/docs/Web/HTTP 
 
-https://www.youtube.com/watch?v=YwHErWJIh6Y
 
-https://medium.com/from-the-scratch/http-server-what-do-you-need-to-know-to-build-a-simple-http-server-from-scratch-d1ef8945e4fa 
 
   
 [:arrow_up:Оглавление](#Оглавление)
