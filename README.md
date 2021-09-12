@@ -10,6 +10,7 @@ Team : [sgath](https://github.com/yukovalski), [ctragula](https://github.com/web
 
 [EN](https://github.com/yukovalski/web_serv/blob/main/.doc/en.sublect.pdf)
 
+[`Checklist`](https://github.com/yukovalski/web_serv/blob/main/.doc/webserver_check_list.pdf)
 
 ---
 
@@ -35,20 +36,6 @@ Team : [sgath](https://github.com/yukovalski), [ctragula](https://github.com/web
   
  `Сокеты` - это де-факто стандарт интерфейсов для транспортной подсистемы
  
-
-  
-[:arrow_up:Оглавление](#Оглавление)
-
---- 
-# Бонусная часть
-
-Если основная часть неидеальная, даже не думайте про бонусы.
-Поддержка `cookie` и `Управление сессиями` (не забудьте тесты).
-Обработка нескольких `CGI`.
-
-[:arrow_up:Оглавление](#Оглавление)
-
- ---
 
 <details>
 <summary>
