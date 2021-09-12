@@ -6,9 +6,9 @@ Team : [sgath](https://github.com/yukovalski), [ctragula](https://github.com/web
 
 `Subject:`
 
-[RU](https://github.com/yukovalski/web_serv/blob/main/.doc/ru.sublect.md)
+[RU](https://github.com/yukovalski/web_serv/blob/main/.doc/ru.subject.md)
 
-[EN](https://github.com/yukovalski/web_serv/blob/main/.doc/en.sublect.pdf)
+[EN](https://github.com/yukovalski/web_serv/blob/main/.doc/en.subject.pdf)
 
 [`Checklist`](https://github.com/yukovalski/web_serv/blob/main/.doc/webserver_check_list.pdf)
 
