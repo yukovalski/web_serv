@@ -2,7 +2,7 @@ web_server
 ---
 *42 project, recoding our own web server in C++. A program capable of running an HTTP server, handling requests, and parsing configuration files.*
 
-Team : [sgath](), [ctragula](), [msamual]()
+Team : [sgath](https://github.com/yukovalski), [ctragula](https://github.com/web-sonic), [msamual](https://github.com/msamual)
 
 `Subject:`
 
@@ -12,6 +12,7 @@ Team : [sgath](), [ctragula](), [msamual]()
 
 
 ---
+
 ## Физический уровень.
 
 Основные способы подключения к интернету и их стандарты(протоколы):
@@ -20,7 +21,6 @@ Team : [sgath](), [ctragula](), [msamual]()
 - `GSM` - стандарт сотовой связи
   
 ## Канальный уровень.
-  
 Основные протоколы:
 - `ARP` - протокол построение таблицы соответствия mac-адресов и ip-адресов. Необходим для привязки ip-адреса к компьютеру(к сетевой карте компьютера). Используется в многоточечных соединениях.
 - `PPP` - Используется в соединениях точка-точка. Определяет структуру кадра и способ контроля его целостности. Также определяет правила установки соединения и проверки состояния сети.
@@ -90,7 +90,7 @@ https://adrienblanc.com/projects/42/webserv
 http://dwise1.net/pgm/sockets/blocking.html
 
 
-[:arrow_up:Оглавление](#Оглавление)
+
 
  </details>
 
@@ -108,5 +108,5 @@ http://dwise1.net/pgm/sockets/blocking.html
 
 [ ] Реагировать на события происходящие на сокетах
   
-[:arrow_up:Оглавление](#Оглавление)
+
 
