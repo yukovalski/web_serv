@@ -70,6 +70,17 @@ Team : [sgath](https://github.com/yukovalski), [ctragula](https://github.com/web
 
 [`HTTP Server: Everything you need to know to Build a simple HTTP server from scratch`](https://medium.com/from-the-scratch/http-server-what-do-you-need-to-know-to-build-a-simple-http-server-from-scratch-d1ef8945e4fa)
 
+[`Hypertext Transfer Protocol -- HTTP/1.1`](https://www.ietf.org/rfc/rfc2616.txt)
+
+
+RFC:
+[7230](https://efim360.ru/rfc-7230-protokol-peredachi-giperteksta-http-1-1-sintaksis-soobshheniya-i-marshrutizacziya/)	
+[7231]()	
+[7232]()
+[7233]()
+[7234]()
+[7235]()
+
 ---
 
 https://adrienblanc.com/projects/42/webserv

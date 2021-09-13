@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 18:18:16 by sgath             #+#    #+#             */
-/*   Updated: 2021/09/12 14:33:53 by sgath            ###   ########.fr       */
+/*   Updated: 2021/09/12 15:21:02 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <fstream>
+
 #include <signal.h>
 #include <sys/socket.h>
 
@@ -29,11 +31,13 @@
 # define RESET "\033
 
 //std::exception
-class	NoValidConf : public std::exception
+class		NoValidConf : public std::exception
 {
-	virtual const char*	what( ) const throw();
+	virtual const char*	what( ) const throw( );
 };
 
+//pars
+std::string	parsingConf( std::string path );
 
 
 #endif
