@@ -22,13 +22,13 @@
 #include <sys/socket.h>
 
 //class
-#include "../srcs/Server.hpp"
+#include "Server.hpp"
 
 // Colors
 # define RED "\033[31m"
 # define GREEN "\033[32m"
 # define YELLOW "\033[33m"
-# define RESET "\033
+# define RESET "\033[34m"
 
 //std::exception
 class		NoValidConf : public std::exception

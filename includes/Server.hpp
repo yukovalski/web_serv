@@ -13,13 +13,14 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include "../includes/webserv.hpp"
+#include "Webserv.hpp"
+#include "Parser.hpp"
 
 class			Server
 {
 private:
+    int			m_port;
 	int			m_socket;
-	int			m_port;
 
 	std::string	m_htmlData;
 
@@ -30,8 +31,8 @@ public:
 	Server( );
 	Server( int aPort = 80 );
 	Server( const Server &v );
-	Server		operator=( Server &v );
-	Server		operator=( const Server &v );
+	Server&		operator=( Server &v );
+	Server&		operator=( const Server &v );
 	~Server( );
 	
 	bool		startServ();

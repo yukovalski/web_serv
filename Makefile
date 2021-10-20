@@ -1,22 +1,57 @@
-NAME =		webserv
+#NAME =		webserv
+#
+#SRCS =		srcs/main.cpp
+#
+#INCLUDES =	includes/webserv.hpp
+#
+#CC =		clang++
+#
+#FLAGS =		-Wall -Wextra -Werror --std=c++98
+#
+#.PHONY: 	all clean fclean re
+#
+#all: 		$(NAME)
+#
+#$(NAME):	$(INCLUDES) $(SRCS)
+#			$(CC) $(SRCS) $(FLAGS) -o $@
+#
+#clean:
+#			rm -rf *.o
+#
+#fclean:		clean
+#			rm -rf $(NAME)
 
-SRCS =		srcs/main.cpp 
+NAME	= webserv
 
-INCLUDES =	includes/webserv.hpp
+CXX		= clang++
 
-CC =		clang++
+SRC_DIR	= srcs/
+OBJ_DIR	= objs/
+INCLUDE_DIR = includes/
 
-FLAGS =		-Wall -Wextra -Werror --std=c++98
+FLAGS	= -Wall -Wextra -Werror -std=c++98  -I $(INCLUDE_DIR)
 
-.PHONY: 	all clean fclean re
+FILES	= main Parser Server
+HEADERS = Webserv Parser Server
+SRCS 	= $(patsubst %, $(SRC_DIR)%.cpp, $(FILES))
+HDRS	= $(patsubst %, $(INCLUDE_DIR)%.hpp, $(HEADERS))
+OBJS 	= $(patsubst %, $(OBJ_DIR)%.o, $(FILES))
 
-all: 		$(NAME)
+all: $(NAME)
 
-$(NAME):	$(INCLUDES) $(SRCS)
-			$(CC) $(SRCS) $(FLAGS) -o $@
+$(NAME): $(OBJS) $(HDRS)
+	$(CXX) -o $(NAME) $(OBJS) $(FLAGS)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CXX) $(FLAGS) -c $< -o $@
 
 clean:
-			rm -rf *.o
+	rm -rf $(OBJ_DIR)
 
-fclean:		clean
-			rm -rf $(NAME)
+fclean: clean
+	rm -f ./$(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

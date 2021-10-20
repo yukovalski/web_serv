@@ -16,7 +16,7 @@ Server::Server( ) :					m_port(80),
 									m_socket(-1)
 {}
 
-Server::Server( int aPort = 443 ) :	m_port(aPort),
+Server::Server( int aPort ) :	    m_port(aPort),
 									m_socket(-1)
 {}
 
@@ -24,10 +24,16 @@ Server::Server( const Server &v ) :	m_port(v.m_port),
 									m_socket(v.m_socket)
 {}
 
-Server	Server::operator=( Server &v )
-{}
+Server&	Server::operator=( Server &v )
+{
+    if (&v != this){
+        m_port = v.m_port;
+        m_socket = v.m_socket;
+    }
+    return (*this);
+}
 
-Server	Server::operator=( const Server &v )
+Server&	Server::operator=( const Server &v )
 {
 	if (&v != this){
 		m_port = v.m_port;
@@ -41,5 +47,5 @@ Server::~Server()
 
 bool	Server::startServ( )
 {
-
+    return true;
 }

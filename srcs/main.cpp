@@ -10,7 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/webserv.hpp"
+#include "Webserv.hpp"
+
+std::string     parsingConf(char *str)
+{
+    return str;
+}
 
 int		main(int argc, char **argv)
 {
