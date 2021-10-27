@@ -17,12 +17,14 @@
 #include <string>
 #include <list>
 #include <fstream>
-
+#include <vector>
+#include <map>
 #include <signal.h>
 #include <sys/socket.h>
 
 //class
 #include "Server.hpp"
+#include "Location.hpp"
 
 // Colors
 # define RED "\033[31m"

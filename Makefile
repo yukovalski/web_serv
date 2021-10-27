@@ -23,6 +23,9 @@
 
 NAME	= webserv
 
+FILES	= main Parser Server Location
+HEADERS = Webserv Parser Server location
+
 CXX		= clang++
 
 SRC_DIR	= srcs/
@@ -31,8 +34,6 @@ INCLUDE_DIR = includes/
 
 FLAGS	= -Wall -Wextra -Werror -std=c++98  -I $(INCLUDE_DIR)
 
-FILES	= main Parser Server
-HEADERS = Webserv Parser Server
 SRCS 	= $(patsubst %, $(SRC_DIR)%.cpp, $(FILES))
 HDRS	= $(patsubst %, $(INCLUDE_DIR)%.hpp, $(HEADERS))
 OBJS 	= $(patsubst %, $(OBJ_DIR)%.o, $(FILES))

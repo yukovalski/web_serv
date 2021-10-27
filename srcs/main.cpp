@@ -19,18 +19,20 @@ std::string     parsingConf(char *str)
 
 int		main(int argc, char **argv)
 {
-	std::string	confPath;
 
-	confPath = (argc == 1) ? "./conf/tester" : std::string(argv[1]);
-	try {
-        confPath = parsingConf(argv[1]);
-        std::cout << "u use " << confPath << std::endl;
-    }
-    catch (std::exception &e) {
-        std::cerr << "Error!" << std::endl;
-		std::cerr << " No valid config: " << e.what() << std::endl;
-        return (1);
-    }
+
+//	std::string	confPath;
+//
+//	confPath = (argc == 1) ? "./conf/tester" : std::string(argv[1]);
+//	try {
+//        confPath = parsingConf(argv[1]);
+//        std::cout << "u use " << confPath << std::endl;
+//    }
+//    catch (std::exception &e) {
+//        std::cerr << "Error!" << std::endl;
+//		std::cerr << " No valid config: " << e.what() << std::endl;
+//        return (1);
+//    }
 	//pars config file
 		//check path
 		//get_next_line
