@@ -14,6 +14,7 @@
 #define WEBSERV_HPP
 
 #include <iostream>
+#include <unistd.h>
 #include <string>
 #include <list>
 #include <fstream>
@@ -24,7 +25,10 @@
 #include <sys/socket.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <fcntl.h>
+#include <sys/poll.h>
+#include <sys/ioctl.h>
 #include <exception>
 
 //class
@@ -38,6 +42,11 @@
 # define GREEN "\033[32m"
 # define YELLOW "\033[33m"
 # define RESET "\033[34m"
+
+// Connections number
+# define CONN_NUMBER 10000
+# define POLL_TIMEOUT 360000
+# define BUFFER_SIZE 1000
 
 //std::exception
 class		NoValidConf : public std::exception

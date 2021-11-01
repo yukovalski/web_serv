@@ -24,7 +24,14 @@ int		main()
 	config.port = 8080;
 	Server		server(config);
 
-	server.start();
+	try
+	{
+		server.start();
+	}
+	catch (std::string exeption)
+	{
+		std::cout << "Error: " << exeption;
+	}
 
 //	std::string	confPath;
 //

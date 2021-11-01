@@ -19,6 +19,7 @@ public:
 	Socket(int fd, int port = 8080, const std::string& host = "127.0.0.1");
 	~Socket();
 
+	Socket*		new_connection();
 	
 	int getFd() const;
 	int getPort() const;

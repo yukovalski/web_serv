@@ -24,6 +24,7 @@ private:
 	t_server			_config;
 	std::string			_htmlData;
 	Socket				*_listening_socket;
+	std::vector<pollfd>	_fds;
 	std::set<Socket *>	_connections;
 
 	Server();
@@ -37,6 +38,7 @@ public:
 	Server&		operator=(const Server &v);
 
 	bool		start();
+	void 		read_request(int fd);
 
 };
 
