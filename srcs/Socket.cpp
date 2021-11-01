@@ -20,6 +20,7 @@ Socket::Socket(int port, const std::string& host) :	_port(port),
 	if (ret < 0)
 		throw "fcntl() failed";
 	bzero(&addr, sizeof(addr));
+	addr.sin_family = AF_INET;
 }
 
 Socket::Socket(int fd, int port, const std::string& host) :	_fd(fd),
