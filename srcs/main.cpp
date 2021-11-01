@@ -17,9 +17,14 @@ std::string     parsingConf(char *str)
     return str;
 }
 
-int		main(int argc, char **argv)
+int		main()
 {
+	t_server	config;
+	config.host = "127.0.0.1";
+	config.port = 8080;
+	Server		server(config);
 
+	server.start();
 
 //	std::string	confPath;
 //

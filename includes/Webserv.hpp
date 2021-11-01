@@ -19,12 +19,19 @@
 #include <fstream>
 #include <vector>
 #include <map>
+#include <set>
 #include <signal.h>
 #include <sys/socket.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <fcntl.h>
+#include <exception>
 
 //class
-#include "Server.hpp"
+#include "Socket.hpp"
 #include "Location.hpp"
+#include "ServConfig.hpp"
+#include "Server.hpp"
 
 // Colors
 # define RED "\033[31m"

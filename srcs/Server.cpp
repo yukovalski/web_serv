@@ -12,40 +12,35 @@
 
 #include "Server.hpp"
 
-Server::Server( ) :					m_port(80),
-									m_socket(-1)
+Server::Server()
 {}
 
-Server::Server( int aPort ) :	    m_port(aPort),
-									m_socket(-1)
-{}
-
-Server::Server( const Server &v ) :	m_port(v.m_port),
-									m_socket(v.m_socket)
-{}
-
-Server&	Server::operator=( Server &v )
+Server::Server(const t_server& config) :	_config(config),
+											_htmlData("HTTP/1.1 200 OK\nDate: Sat, 27 Oct 2021 16:58:49 GMT\nContent-Type: text/html\nContent-Length: 98\nConnection: keep-alive\n\n<html><body><p>Yulia - ZHOPA!!!</p></body></html>\n\n")
 {
-    if (&v != this){
-        m_port = v.m_port;
-        m_socket = v.m_socket;
-    }
-    return (*this);
+	std::cout << "server object was created" << std::endl;
 }
 
-Server&	Server::operator=( const Server &v )
+Server::Server(const Server &v) :
+	_config(v._config),
+	_htmlData(v._htmlData)
+{}
+
+Server&	Server::operator=(const Server &v)
 {
-	if (&v != this){
-		m_port = v.m_port;
-		m_socket = v.m_socket;
-	}
-	return (*this);
+    if (&v != this){
+        _config = v._config;
+        _htmlData = v._htmlData;
+    }
+    return (*this);
 }
 
 Server::~Server()
 {}
 
-bool	Server::startServ( )
+bool	Server::start()
 {
+	_listening_socket = new Socket(_config.port, _config.host);
+	std::cout << "server is started" << std::endl;
     return true;
 }

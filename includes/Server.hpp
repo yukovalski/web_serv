@@ -14,30 +14,30 @@
 #define SERVER_HPP
 
 #include "Webserv.hpp"
-#include "Parser.hpp"
+
+class Socket;
 
 class			Server
 {
 private:
-    int			m_port;
-	int			m_socket;
 
-	std::string	m_htmlData;
+	t_server			_config;
+	std::string			_htmlData;
+	Socket				*_listening_socket;
+	std::set<Socket *>	_connections;
 
-	bool		settingClient( int, std::string );
-	
+	Server();
+
 public:
 
-	Server( );
-	Server( int aPort = 80 );
-	Server( const Server &v );
-	Server&		operator=( Server &v );
-	Server&		operator=( const Server &v );
-	~Server( );
-	
-	bool		startServ();
+	Server(const t_server& config);
+	Server(const Server &v);
+	~Server();
 
-	
+	Server&		operator=(const Server &v);
+
+	bool		start();
+
 };
 
 #endif
