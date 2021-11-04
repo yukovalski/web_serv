@@ -53,7 +53,7 @@ bool	Server::start()
 	while (true)
 	{
 		std::cout << "Waiting on poll ..." << std::endl;
-		ret = poll(_fds.data(), _fds.size(), 360000);
+		ret = poll(_fds.data(), _fds.size(), POLL_TIMEOUT);
 		if (ret < 0)
 			throw "poll() failed";
 		if (ret == 0)
@@ -73,14 +73,12 @@ bool	Server::start()
 				std::cout << "listening socket is readable" << std::endl;
 				while (true)
 				{
-
 					new_socket = _listening_socket->new_connection();
 					if (!new_socket)
 						break ;
 					fds->fd = new_socket->getFd();
 					fds->events = POLLIN;
 					_fds.push_back(*fds);
-					_connections.insert(new_socket);
 				}
 			}
 			else
@@ -96,29 +94,48 @@ bool	Server::start()
 
 void 		Server::read_request(int fd)
 {
-	int 		ret;
-	char		buf[BUFFER_SIZE + 1];
-	std::string request("");
+	int ret = _requests[fd].read_line(fd);
 
-	while (true)
+	if (ret == -1)
 	{
-		ret = recv(fd, buf, BUFFER_SIZE, 0);
-		if (ret < 0 && errno != EWOULDBLOCK)
-			throw "recv() failed";
-		if (ret == 0)
+		std::cout << "Connection closed" << std::endl;
+		for (std::vector<pollfd>::iterator i = _fds.begin(); i != _fds.end(); ++i)
 		{
-			std::cout << "Connection closed" << std::endl;
-			for (std::vector<pollfd>::iterator i = _fds.begin(); i != _fds.end(); ++i)
-			{
-				if (i->fd == fd)
-					_fds.erase(i);
-			}
-			break ;
-		}
-		if (ret > 0)
-		{
-			request.append(buf, ret);
-			std::cout << "request: " << request << std::endl;
+			if (i->fd == fd)
+				_fds.erase(i);
 		}
 	}
+	if (ret == 1)
+		_requests[fd].print_request_buffer();
+
+//	int 		ret = 0;
+//	char		buf[BUFFER_SIZE + 1];
+//	std::string str;
+//
+//	while (true)
+//	{
+//		ret = recv(fd, buf, BUFFER_SIZE, 0);
+//		if (ret < 0 && errno != EWOULDBLOCK)
+//			throw "recv() failed";
+//		if (ret < 0)
+//			break ;
+//		if (ret == 0)
+//		{
+//			std::cout << "Connection closed" << std::endl;
+//			for (std::vector<pollfd>::iterator i = _fds.begin(); i != _fds.end(); ++i)
+//			{
+//				if (i->fd == fd)
+//					_fds.erase(i);
+//			}
+//			break ;
+//		}
+//		if (ret > 0)
+//		{
+//			buf[ret] = 0;
+//			str.append(buf, ret);
+//		}
+//	}
+//	std::cout << "str: " << str << std::endl;
+//	_request_buffers[fd].push_back(str);
+
 }

@@ -16,16 +16,17 @@
 #include "Webserv.hpp"
 
 class Socket;
+class Request;
 
 class			Server
 {
 private:
 
-	t_server			_config;
-	std::string			_htmlData;
-	Socket				*_listening_socket;
-	std::vector<pollfd>	_fds;
-	std::set<Socket *>	_connections;
+	t_server									_config;
+	std::string									_htmlData;
+	Socket										*_listening_socket;
+	std::vector<pollfd>							_fds;
+	std::map<int, Request>						_requests;
 
 	Server();
 

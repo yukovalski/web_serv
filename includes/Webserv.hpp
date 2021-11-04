@@ -32,6 +32,7 @@
 #include <exception>
 
 //class
+#include "Request.hpp"
 #include "Socket.hpp"
 #include "Location.hpp"
 #include "ServConfig.hpp"
@@ -46,7 +47,7 @@
 // Connections number
 # define CONN_NUMBER 10000
 # define POLL_TIMEOUT 360000
-# define BUFFER_SIZE 1000
+# define BUFFER_SIZE 2
 
 //std::exception
 class		NoValidConf : public std::exception

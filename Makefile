@@ -23,8 +23,8 @@
 
 NAME	= webserv
 
-FILES	= main Parser Server Socket
-HEADERS = Webserv Parser Server Location ServConfig Socket
+FILES	= main Parser Server Socket Request
+HEADERS = Webserv Parser Server Location ServConfig Socket Request
 
 CXX		= clang++
 
@@ -43,7 +43,7 @@ all: $(NAME)
 $(NAME): $(OBJS) $(HDRS)
 	$(CXX) -o $(NAME) $(OBJS) $(FLAGS)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(HDRS)
 	mkdir -p $(OBJ_DIR)
 	$(CXX) $(FLAGS) -c $< -o $@
 
