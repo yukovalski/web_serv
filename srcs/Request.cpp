@@ -19,7 +19,7 @@ int 	Request::read_line(int fd)
 	while (true)
 	{
 		ret = recv(fd, buf, BUFFER_SIZE, 0);
-		if (ret < 0 && errno != EWOULDBLOCK)
+		if (ret < 0)
 			throw "recv() failed";
 		if (ret < 0)
 			break ;

@@ -58,5 +58,13 @@ class		NoValidConf : public std::exception
 //pars
 std::string	parsingConf( std::string path );
 
+//functions
+std::vector<t_server>	parse_config(int argc, char **argv);
+
+std::map<int, std::pair<std::string, int> >
+		create_listening_sockets(const std::vector<t_server>& config);
+
+int 					puterror(std::string msg, int errno_code);
+
 
 #endif

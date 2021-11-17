@@ -17,21 +17,22 @@ std::string     parsingConf(char *str)
     return str;
 }
 
-int		main()
+int		main(int ac, char **av)
 {
-	t_server	config;
-	config.host = "127.0.0.1";
-	config.port = 8080;
-	Server		server(config);
+	std::vector<t_server>	config;
 
 	try
 	{
+		config = parse_config(ac, av);
+		Server	server(config);
+
 		server.start();
 	}
-	catch (std::string exeption)
+	catch (std::exception& e)
 	{
-		std::cout << "Error: " << exeption;
+		std::cerr << e.what() << std::endl;
 	}
+
 
 //	std::string	confPath;
 //

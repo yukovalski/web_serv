@@ -23,7 +23,7 @@
 
 NAME	= webserv
 
-FILES	= main Parser Server Socket Request
+FILES	= main Parser Server Socket Request parse_config utils_socket puterror
 HEADERS = Webserv Parser Server Location ServConfig Socket Request
 
 CXX		= clang++

@@ -22,17 +22,17 @@ class			Server
 {
 private:
 
-	t_server									_config;
+	std::vector<t_server>						_config;
 	std::string									_htmlData;
-	Socket										*_listening_socket;
 	std::vector<pollfd>							_fds;
 	std::map<int, Request>						_requests;
+	std::map<int, std::pair<std::string, int> >	_listening_sockets;
 
 	Server();
 
 public:
 
-	Server(const t_server& config);
+	Server(const std::vector<t_server>& config);
 	Server(const Server &v);
 	~Server();
 
