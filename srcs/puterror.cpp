@@ -16,6 +16,6 @@ int 	puterror(std::string msg, int errno_code)
 
 	strerror_r(errno_code, buf, sizeof(buf));
 	std::cerr << "Error: " << msg << std::endl;
-	std::cerr << "   Errno = " << buf << std::endl;
+	std::cerr << "   Errno = " << errno_code << " " <<  buf << std::endl;
 	return -1;
 }

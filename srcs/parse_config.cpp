@@ -13,10 +13,10 @@ std::vector<t_server>	parse_config(int argc, char **argv)
 	t_server				simple_conf;
 
 	simple_conf.port = 8080;
-	simple_conf.host = "localhost";
-	result.push_back(simple_conf);
 	simple_conf.host = "127.0.0.1";
-	simple_conf.port = 8080;
+	result.push_back(simple_conf);
+//	simple_conf.host = "localhost";
+//	simple_conf.port = 8081;
 	result.push_back(simple_conf);
 	result.push_back(simple_conf);
 	return result;
