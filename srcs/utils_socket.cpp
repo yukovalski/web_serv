@@ -2,7 +2,7 @@
 // Created by Sergey Uryashev on 16.11.2021.
 //
 
-#include "Webserv.hpp"
+#include "../includes/Webserv.hpp"
 
 int 	create_socket(const std::string& host, int port)
 {
@@ -36,7 +36,7 @@ std::map<int, std::pair<std::string, int> >
 	std::set<std::pair<std::string, int> >				hostports;
 	std::map<int, std::pair<std::string, int> >			res;
 	int 												fd;
-	std::set<std::pair<std::string, int> >::iterator	i
+	std::set<std::pair<std::string, int> >::iterator	i;
 
 	for (size_t i = 0; i < config.size(); ++i)
 		hostports.insert(std::pair<std::string, int>(config[i].host,
