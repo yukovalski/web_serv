@@ -37,7 +37,14 @@ Server::~Server()
 bool	Server::start()
 {
 	_listening_sockets = create_listening_sockets(_config);
+	loop();
     return true;
+}
+
+void 	Server::loop()
+{
+//	struct kevent		events[MAX_EVENT];
+
 }
 
 void 		Server::read_request(int fd)

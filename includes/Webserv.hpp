@@ -30,6 +30,7 @@
 #include <sys/poll.h>
 #include <sys/ioctl.h>
 #include <exception>
+#include <sys/event.h>
 
 //class
 #include "Request.hpp"
@@ -48,6 +49,7 @@
 # define CONN_NUMBER 10000
 # define POLL_TIMEOUT 360000
 # define BUFFER_SIZE 2
+# define MAX_EVENT	128
 
 //std::exception
 class		NoValidConf : public std::exception

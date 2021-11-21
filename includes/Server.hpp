@@ -39,6 +39,9 @@ public:
 	Server&		operator=(const Server &v);
 
 	bool		start();
+
+private:
+	void 		loop();
 	void 		read_request(int fd);
 
 };
