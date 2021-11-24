@@ -9,5 +9,16 @@ Connection::Connection(int fd, int host, int port)
 {}
 
 Connection::~Connection()
-{}
+{
+	close(_fd);
+	std::cout << "close connection on " << _fd << " fd." << std::endl;
+}
 
+int					Connection::getFd() const { return _fd; }
+int 				Connection::getPort() const { return _port; }
+const std::string&	Connection::getHost() const { return _host; }
+int 				Connection::getStatus() const { return _status; }
+std::string&		Connection::getRequest() { return _request; }
+std::string&		Connection::getResponse() { return _response; }
+
+void 				Connection::setStatus(int status) { _status = status; }

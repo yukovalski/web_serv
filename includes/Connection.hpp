@@ -29,6 +29,14 @@ public:
 	Connection(int fd, std::string host, int port);
 	~Connection();
 
+	int 				getFd() const;
+	int 				getPort() const;
+	const std::string&	getHost() const;
+	int 				getStatus() const;
+	std::string& 		getRequest();
+	std::string&		getResponse();
+
+	void 				setStatus();
 };
 
 

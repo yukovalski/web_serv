@@ -31,8 +31,10 @@
 #include <sys/ioctl.h>
 #include <exception>
 #include <sys/event.h>
+#include <queue>
 
 //class
+#include "Connection.hpp"
 #include "Request.hpp"
 #include "Socket.hpp"
 #include "Location.hpp"

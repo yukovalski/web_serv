@@ -21,12 +21,12 @@ class Request;
 class			Server
 {
 private:
-
+	int 										_kq;
 	std::vector<t_server>						_config;
 	std::string									_htmlData;
-	std::vector<pollfd>							_fds;
-	std::map<int, Request>						_requests;
+	std::vector<kevent>							_fds;
 	std::map<int, std::pair<std::string, int> >	_listening_sockets;
+	std::map<int, Connection>					_connections;
 
 	Server();
 

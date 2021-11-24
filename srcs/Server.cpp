@@ -36,6 +36,10 @@ Server::~Server()
 
 bool	Server::start()
 {
+//	struct kevent		events[MAX_EVENT];
+	_kq = kqueue();
+	_fds.reserve(MAX_EVENT);
+
 	_listening_sockets = create_listening_sockets(_config);
 	loop();
     return true;
@@ -43,25 +47,8 @@ bool	Server::start()
 
 void 	Server::loop()
 {
-//	struct kevent		events[MAX_EVENT];
 
 }
-
-void 		Server::read_request(int fd)
-{
-	int ret = _requests[fd].read_line(fd);
-
-	if (ret == -1)
-	{
-		std::cout << "Connection closed" << std::endl;
-		for (std::vector<pollfd>::iterator i = _fds.begin(); i != _fds.end(); ++i)
-		{
-			if (i->fd == fd)
-				_fds.erase(i);
-		}
-	}
-	if (ret == 1)
-		_requests[fd].print_request_buffer();
 
 //	int 		ret = 0;
 //	char		buf[BUFFER_SIZE + 1];
@@ -93,4 +80,4 @@ void 		Server::read_request(int fd)
 //	std::cout << "str: " << str << std::endl;
 //	_request_buffers[fd].push_back(str);
 
-}
+
