@@ -39,6 +39,8 @@ public:
 	std::string&		getResponse();
 
 	void 				setStatus(int status);
+
+	void 				read_request();
 };
 
 

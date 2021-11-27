@@ -76,6 +76,8 @@ void 	Server::handle_events(struct kevent* events, int count)
 		it = _listening_sockets.find(fd);
 		if (it != _listening_sockets.end())
 			_connections->add_new_connection(it, _kq);
+		else
+			(*_connections)[fd].read_request();
 	}
 }
 

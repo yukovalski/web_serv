@@ -29,3 +29,23 @@ std::string&		Connection::getRequest() { return _request; }
 std::string&		Connection::getResponse() { return _response; }
 
 void 				Connection::setStatus(int status) { _status = status; }
+
+void 				Connection::read_request()
+{
+	int 	ret = BUFFER_SIZE;
+	char 	buf[BUFFER_SIZE + 1];
+
+	_request = "";
+	std::cout << "read from " << _fd << " fd." << std::endl;
+	while(ret == BUFFER_SIZE)
+	{
+		ret = recv(_fd, buf, BUFFER_SIZE, 0);
+		if (ret == -1) {
+			std::cerr << "recv() failed." << std::endl;
+			return;
+		}
+		buf[ret] = 0;
+		_request += buf;
+	}
+	send(_fd, _request.data(), _request.length(), 0);
+}

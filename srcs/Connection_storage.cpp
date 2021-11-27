@@ -11,7 +11,11 @@ Connection_storage::Connection_storage(const Connection_storage &other) : _conne
 {}
 
 Connection_storage::~Connection_storage()
-{}
+{
+	std::map<int, Connection*>::iterator i;
+	for (i = _connections.begin(); i != _connections.end(); ++i)
+		delete i->second;
+}
 
 Connection_storage&	Connection_storage::operator=(const Connection_storage &other)
 {
