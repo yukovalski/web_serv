@@ -17,15 +17,19 @@
 
 class Socket;
 class Request;
+class Connection;
 
 class			Server
 {
+	typedef std::map<int, std::pair<std::string, int> >		listen_map;
+
 private:
 	int 										_kq;
 	std::vector<t_server>						_config;
 	std::string									_htmlData;
-	std::vector<kevent>							_fds;
-	std::map<int, std::pair<std::string, int> >	_listening_sockets;
+	struct kevent								_fds[CONN_NUMBER];
+	size_t 										_fds_size;
+	listen_map									_listening_sockets;
 	std::map<int, Connection>					_connections;
 
 	Server();
@@ -42,7 +46,8 @@ public:
 
 private:
 	void 		loop();
-	void 		read_request(int fd);
+	void 		handle_events(struct kevent* events, int count);
+	void 		add_listening_sockets_to_track();
 
 };
 

@@ -13,6 +13,18 @@
 #ifndef WEBSERV_HPP
 #define WEBSERV_HPP
 
+# define CONN_NUMBER 10000
+# define BUFFER_SIZE 2
+# define MAX_EVENT	128
+
+// Colors
+# define RED "\033[31m"
+# define GREEN "\033[32m"
+# define YELLOW "\033[33m"
+
+# define RESET "\033[34m"
+
+
 #include <iostream>
 #include <unistd.h>
 #include <string>
@@ -30,8 +42,10 @@
 #include <sys/poll.h>
 #include <sys/ioctl.h>
 #include <exception>
+#include <sys/types.h>
 #include <sys/event.h>
-#include <queue>
+
+#include <sys/time.h>
 
 //class
 #include "Connection.hpp"
@@ -39,19 +53,9 @@
 #include "Socket.hpp"
 #include "Location.hpp"
 #include "ServConfig.hpp"
+
 #include "Server.hpp"
 
-// Colors
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define YELLOW "\033[33m"
-# define RESET "\033[34m"
-
-// Connections number
-# define CONN_NUMBER 10000
-# define POLL_TIMEOUT 360000
-# define BUFFER_SIZE 2
-# define MAX_EVENT	128
 
 //std::exception
 class		NoValidConf : public std::exception

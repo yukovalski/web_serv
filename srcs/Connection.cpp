@@ -4,7 +4,7 @@
 
 #include "../includes/Connection.hpp"
 
-Connection::Connection(int fd, int host, int port)
+Connection::Connection(int fd, std::string host, int port)
 	: _fd(fd), _host(host), _port(port), _status(LISTENING)
 {}
 

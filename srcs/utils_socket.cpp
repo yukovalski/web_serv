@@ -19,7 +19,7 @@ int 	create_socket(const std::string& host, int port)
 	if  (ret == -1)
 		return puterror("setsockopt() failed", errno);
 	addr.sin_family = AF_INET;
-	addr.sin_port = port;
+	addr.sin_port = htons(port);
 	addr.sin_addr.s_addr = inet_addr(host.data());
 	ret = bind(fd, (struct sockaddr*)&addr, addrlen);
 	if (ret == -1)

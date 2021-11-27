@@ -12,7 +12,7 @@
 
 #include "Server.hpp"
 
-Server::Server(const std::vector<t_server>& config) :	_config(config)
+Server::Server(const std::vector<t_server>& config) :	_config(config), _fds_size(0)
 {
 	std::cout << "server object was created" << std::endl;
 }
@@ -36,48 +36,59 @@ Server::~Server()
 
 bool	Server::start()
 {
-//	struct kevent		events[MAX_EVENT];
 	_kq = kqueue();
-	_fds.reserve(MAX_EVENT);
 
+	if (_kq == -1)
+		throw std::runtime_error("kqueue() failed");
 	_listening_sockets = create_listening_sockets(_config);
+	add_listening_sockets_to_track();
 	loop();
     return true;
 }
 
 void 	Server::loop()
 {
+	struct kevent	events[MAX_EVENT];
+	int 			events_count;
 
+	while(true)
+	{
+		std::cout << "waiting..." << std::endl;
+		events_count = kevent(_kq, NULL, 0, events, MAX_EVENT, NULL);
+		if (events_count == -1)
+			throw std::runtime_error("kevent() failed");
+		handle_events(events, events_count);
+	}
 }
 
-//	int 		ret = 0;
-//	char		buf[BUFFER_SIZE + 1];
-//	std::string str;
-//
-//	while (true)
-//	{
-//		ret = recv(fd, buf, BUFFER_SIZE, 0);
-//		if (ret < 0 && errno != EWOULDBLOCK)
-//			throw "recv() failed";
-//		if (ret < 0)
-//			break ;
-//		if (ret == 0)
-//		{
-//			std::cout << "Connection closed" << std::endl;
-//			for (std::vector<pollfd>::iterator i = _fds.begin(); i != _fds.end(); ++i)
-//			{
-//				if (i->fd == fd)
-//					_fds.erase(i);
-//			}
-//			break ;
-//		}
-//		if (ret > 0)
-//		{
-//			buf[ret] = 0;
-//			str.append(buf, ret);
-//		}
-//	}
-//	std::cout << "str: " << str << std::endl;
-//	_request_buffers[fd].push_back(str);
+void 	Server::handle_events(struct kevent* events, int count)
+{
+	int		fd;
 
+	for (int i = 0; i < count; ++i)
+	{
+		fd = events[i].ident;
+		std::cout << "event on " << fd << " fd" << std::endl;
+		if (events[i].flags & EV_ERROR)
+			throw std::runtime_error("event error");
+		if (_listening_sockets.find(fd) != _listening_sockets.end());
+
+	}
+}
+
+void 	Server::add_listening_sockets_to_track()
+{
+	listen_map::iterator	i;
+
+	for (i = _listening_sockets.begin(); i != _listening_sockets.end(); ++i)
+	{
+		struct kevent	changelist;
+
+		memset(&changelist, 0, sizeof(changelist));
+		EV_SET(&changelist, i->first, EVFILT_READ, EV_ADD, 0, 0, 0);
+		if (kevent(_kq, &changelist, 1, NULL, 0, NULL) == -1)
+			throw std::runtime_error ("add event to kqueue failed");
+		std::cout << "add " << changelist.ident << " fd to track" << std::endl;
+	}
+}
 

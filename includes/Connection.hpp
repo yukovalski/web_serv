@@ -5,6 +5,8 @@
 #ifndef WEB_SERV_CONNECTION_H
 #define WEB_SERV_CONNECTION_H
 
+#include "Webserv.hpp"
+
 #define LISTENING	0
 #define READING		1
 #define COMPLETE	2
@@ -36,7 +38,7 @@ public:
 	std::string& 		getRequest();
 	std::string&		getResponse();
 
-	void 				setStatus();
+	void 				setStatus(int status);
 };
 
 
