@@ -35,7 +35,6 @@
 #include <set>
 #include <signal.h>
 #include <sys/socket.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <fcntl.h>
@@ -49,6 +48,7 @@
 
 //class
 #include "Connection.hpp"
+#include "Connection_storage.hpp"
 #include "Request.hpp"
 #include "Socket.hpp"
 #include "Location.hpp"

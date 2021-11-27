@@ -7,10 +7,14 @@
 
 #include "Webserv.hpp"
 
+class Connection;
+
 class Connection_storage
 {
+	typedef std::map<int, std::pair<std::string, int> >		listen_map;
+
 private:
-	std::map<int, Connection>	_connections;
+	std::map<int, Connection*>	_connections;
 
 public:
 	Connection_storage();
@@ -20,7 +24,7 @@ public:
 	Connection_storage&		operator=(const Connection_storage& other);
 
 	Connection&				operator[](size_t i);
-	void 					add_new_connection(int sd);
+	void 					add_new_connection(listen_map::iterator sock, int kq);
 };
 
 

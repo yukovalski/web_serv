@@ -14,6 +14,7 @@
 
 Server::Server(const std::vector<t_server>& config) :	_config(config), _fds_size(0)
 {
+	_connections = new Connection_storage;
 	std::cout << "server object was created" << std::endl;
 }
 
@@ -63,7 +64,8 @@ void 	Server::loop()
 
 void 	Server::handle_events(struct kevent* events, int count)
 {
-	int		fd;
+	int						fd;
+	listen_map::iterator	it;
 
 	for (int i = 0; i < count; ++i)
 	{
@@ -71,8 +73,9 @@ void 	Server::handle_events(struct kevent* events, int count)
 		std::cout << "event on " << fd << " fd" << std::endl;
 		if (events[i].flags & EV_ERROR)
 			throw std::runtime_error("event error");
-		if (_listening_sockets.find(fd) != _listening_sockets.end());
-
+		it = _listening_sockets.find(fd);
+		if (it != _listening_sockets.end())
+			_connections->add_new_connection(it, _kq);
 	}
 }
 
@@ -90,5 +93,10 @@ void 	Server::add_listening_sockets_to_track()
 			throw std::runtime_error ("add event to kqueue failed");
 		std::cout << "add " << changelist.ident << " fd to track" << std::endl;
 	}
+}
+
+void 	Server::add_kevent_struct(struct kevent k)
+{
+	_fds[_fds_size++] = k;
 }
 

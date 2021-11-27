@@ -6,7 +6,14 @@
 
 Connection::Connection(int fd, std::string host, int port)
 	: _fd(fd), _host(host), _port(port), _status(LISTENING)
-{}
+{
+	struct sockaddr	addr;
+	socklen_t		len = sizeof(sockaddr);
+
+	_fd = accept(fd, &addr, &len);
+	if (_fd == -1)
+		throw std::runtime_error("accept() failed");
+}
 
 Connection::~Connection()
 {

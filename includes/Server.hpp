@@ -18,6 +18,7 @@
 class Socket;
 class Request;
 class Connection;
+class Connection_storage;
 
 class			Server
 {
@@ -30,7 +31,7 @@ private:
 	struct kevent								_fds[CONN_NUMBER];
 	size_t 										_fds_size;
 	listen_map									_listening_sockets;
-	std::map<int, Connection>					_connections;
+	Connection_storage							*_connections;
 
 	Server();
 
@@ -43,6 +44,7 @@ public:
 	Server&		operator=(const Server &v);
 
 	bool		start();
+	void 		add_kevent_struct(struct kevent k);
 
 private:
 	void 		loop();

@@ -5,12 +5,12 @@
 #ifndef WEB_SERV_CONNECTION_H
 #define WEB_SERV_CONNECTION_H
 
-#include "Webserv.hpp"
-
 #define LISTENING	0
 #define READING		1
 #define COMPLETE	2
 #define WRITING		3
+
+#include "Webserv.hpp"
 
 class Connection
 {
