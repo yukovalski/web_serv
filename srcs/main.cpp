@@ -24,7 +24,7 @@ int		main(int ac, char **av)
 	try
 	{
 		config = parse_config(ac, av);
-		Server	server(config);
+		Server	server(config, set_error_pages(config));
 
 		server.start();
 	}

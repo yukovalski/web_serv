@@ -15,9 +15,10 @@ class Connection_storage
 
 private:
 	std::map<int, Connection*>	_connections;
+	std::map<int, std::string>	*_error_pages;
 
 public:
-	Connection_storage();
+	Connection_storage(std::map<int, std::string>* error_pages);
 	Connection_storage(const Connection_storage& other);
 	~Connection_storage();
 
@@ -25,6 +26,8 @@ public:
 
 	Connection&				operator[](size_t i);
 	void 					add_new_connection(listen_map::iterator sock, int kq);
+
+	void 					close_connection(int fd);
 };
 
 

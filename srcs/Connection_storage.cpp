@@ -4,7 +4,7 @@
 
 #include "../includes/Connection_storage.hpp"
 
-Connection_storage::Connection_storage()
+Connection_storage::Connection_storage(std::map<int, std::string>* error_pages) : _error_pages(error_pages)
 {}
 
 Connection_storage::Connection_storage(const Connection_storage &other) : _connections(other._connections)
@@ -27,7 +27,7 @@ Connection&			Connection_storage::operator[](size_t i) { return *_connections[i]
 
 void 				Connection_storage::add_new_connection(listen_map::iterator sock, int kq)
 {
-	Connection		*new_conn = new Connection(sock->first, sock->second.first, sock->second.second);
+	Connection		*new_conn = new Connection(sock->first, sock->second.first, sock->second.second, _error_pages);
 	struct kevent	changelist;
 
 	_connections[new_conn->getFd()] = new_conn;
@@ -37,4 +37,10 @@ void 				Connection_storage::add_new_connection(listen_map::iterator sock, int k
 	if (kevent(kq, &changelist, 1, NULL, 0, NULL) == -1)
 		throw std::runtime_error ("add event to kqueue failed");
 	std::cout << "add " << changelist.ident << " fd to track" << std::endl;
+}
+
+void 				Connection_storage::close_connection(int fd)
+{
+	delete _connections[fd];
+	_connections.erase(fd);
 }

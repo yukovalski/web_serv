@@ -4,8 +4,8 @@
 
 #include "../includes/Connection.hpp"
 
-Connection::Connection(int fd, std::string host, int port)
-	: _fd(fd), _host(host), _port(port), _status(LISTENING)
+Connection::Connection(int fd, std::string host, int port, std::map<int, std::string>* error_pages)
+	: _fd(fd), _host(host), _port(port), _status(INCOMPLETE), _error_pages(error_pages), _close_connection_flag(DONT_CLOSE)
 {
 	struct sockaddr	addr;
 	socklen_t		len = sizeof(sockaddr);
@@ -27,25 +27,50 @@ const std::string&	Connection::getHost() const { return _host; }
 int 				Connection::getStatus() const { return _status; }
 std::string&		Connection::getRequest() { return _request; }
 std::string&		Connection::getResponse() { return _response; }
+int 				Connection::getCloseConnectionFlag() const { return _close_connection_flag; }
 
 void 				Connection::setStatus(int status) { _status = status; }
 
-void 				Connection::read_request()
+void 				Connection::read_request(const struct kevent& event)
 {
-	int 	ret = BUFFER_SIZE;
-	char 	buf[BUFFER_SIZE + 1];
+	int 	ret, size = event.data;
+	char 	buf[size + 1];
 
-	_request = "";
 	std::cout << "read from " << _fd << " fd." << std::endl;
-	while(ret == BUFFER_SIZE)
+	std::cout << "size = " << size << std::endl;
+	ret = recv(_fd, buf, size, 0);
+	std::cout << "read = " << ret << std::endl;
+	if (ret == -1)
 	{
-		ret = recv(_fd, buf, BUFFER_SIZE, 0);
-		if (ret == -1) {
-			std::cerr << "recv() failed." << std::endl;
-			return;
-		}
-		buf[ret] = 0;
-		_request += buf;
+		std::cerr << "recv() failed from " << _fd << " fd." << std::endl;
+		return;
 	}
-	send(_fd, _request.data(), _request.length(), 0);
+	buf[ret] = 0;
+	_request.append(buf);
+	check_request();
+}
+
+void 			Connection::send_response()
+{
+	size_t ret;
+
+	ret = send(_fd, _response.data(), _response.size(), 0);
+	if (ret < 0)
+		std::cerr << "send() failed to " << _fd << " fd." << std::endl;
+	if (_close_connection_flag & AFTER_SEND)
+		_close_connection_flag = SHOULD_BE_CLOSED;
+}
+
+void 			Connection::check_request()
+{
+	std::stringstream	ss(this->_request);
+	std::string 		method, route, version;
+
+	ss >> method >> route >> version;
+	if (method != "GET" && method != "POST" && method != "DELETE")
+	{
+		_request = (*_error_pages)[400];
+		_status = COMPLETE;
+		_close_connection_flag = AFTER_SEND;
+	}
 }

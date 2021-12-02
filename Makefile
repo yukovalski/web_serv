@@ -21,16 +21,17 @@
 #fclean:		clean
 #			rm -rf $(NAME)
 
-NAME	= webserv
+NAME	=		webserv
 
-FILES	= main Parser Server Socket Request parse_config utils_socket puterror Connection_storage Connection
-HEADERS = Webserv Parser Server Location ServConfig Socket Request Connection_storage Connection
+FILES	=		main Parser Server Socket Request parse_config utils_socket puterror Connection_storage Connection \
+				set_error_pages
+HEADERS =		Webserv Parser Server Location ServConfig Socket Request Connection_storage Connection
 
-CXX		= clang++
+CXX		=		clang++
 
-SRC_DIR	= srcs/
-OBJ_DIR	= objs/
-INCLUDE_DIR = includes/
+SRC_DIR	=		srcs/
+OBJ_DIR	=		objs/
+INCLUDE_DIR =	includes/
 
 FLAGS	= -Wall -Wextra -Werror   -I $(INCLUDE_DIR) -g
 

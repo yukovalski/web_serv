@@ -32,12 +32,13 @@ private:
 	size_t 										_fds_size;
 	listen_map									_listening_sockets;
 	Connection_storage							*_connections;
+	std::map<int, std::string>					*_error_pages;
 
 	Server();
 
 public:
 
-	Server(const std::vector<t_server>& config);
+	Server(const std::vector<t_server>& config, std::map<int, std::string>* error_pages);
 	Server(const Server &v);
 	~Server();
 
@@ -50,7 +51,8 @@ private:
 	void 		loop();
 	void 		handle_events(struct kevent* events, int count);
 	void 		add_listening_sockets_to_track();
-
+	void 		add_to_write_track(int fd);
+	void 		del_from_read_track(int fd);
 };
 
 #endif

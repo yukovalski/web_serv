@@ -6,15 +6,15 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 19:14:59 by sgath             #+#    #+#             */
-/*   Updated: 2021/09/12 15:55:28 by sgath            ###   ########.fr       */
+/*   Updated: 2021/12/02 16:08:53 by msamual          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Server.hpp"
 
-Server::Server(const std::vector<t_server>& config) :	_config(config), _fds_size(0)
+Server::Server(const std::vector<t_server>& config, std::map<int, std::string>* error_pages) :	_config(config), _fds_size(0)
 {
-	_connections = new Connection_storage;
+	_connections = new Connection_storage(error_pages);
 	std::cout << "server object was created" << std::endl;
 }
 
@@ -70,14 +70,30 @@ void 	Server::handle_events(struct kevent* events, int count)
 	for (int i = 0; i < count; ++i)
 	{
 		fd = events[i].ident;
+
 		std::cout << "event on " << fd << " fd" << std::endl;
-		if (events[i].flags & EV_ERROR)
+		if (events[i].flags & EV_ERROR) {
 			throw std::runtime_error("event error");
+		}
 		it = _listening_sockets.find(fd);
-		if (it != _listening_sockets.end())
+		if (it != _listening_sockets.end()) {
 			_connections->add_new_connection(it, _kq);
-		else
-			(*_connections)[fd].read_request();
+			continue;
+		}
+		Connection&		connection = (*_connections)[fd];
+
+		if (events[i].flags & EVFILT_READ) {
+			connection.read_request(events[i]);
+			if (connection.getStatus() == COMPLETE)
+			{
+//				del_from_read_track(fd);
+				add_to_write_track(fd);
+			}
+		}
+		else if (events[i].flags & EVFILT_WRITE)
+			connection.send_response();
+		if (connection.getCloseConnectionFlag() & SHOULD_BE_CLOSED)
+			_connections->close_connection(fd);
 	}
 }
 
@@ -95,6 +111,26 @@ void 	Server::add_listening_sockets_to_track()
 			throw std::runtime_error ("add event to kqueue failed");
 		std::cout << "add " << changelist.ident << " fd to track" << std::endl;
 	}
+}
+
+void 	Server::add_to_write_track(int fd)
+{
+	struct kevent	changelist;
+
+	memset(&changelist, 0, sizeof(changelist));
+	EV_SET(&changelist, fd, EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, 0);
+	if (kevent(_kq, &changelist, 1, NULL, 0, NULL) == -1)
+		throw std::runtime_error ("add event to kqueue failed");
+}
+
+void 	Server::del_from_read_track(int fd)
+{
+	struct kevent	changelist;
+
+	memset(&changelist, 0, sizeof(changelist));
+	EV_SET(&changelist, fd, EVFILT_READ, EV_DELETE, 0, 0, 0);
+	if (kevent(_kq, &changelist, 1, NULL, 0, NULL) == -1)
+		throw std::runtime_error ("add event to kqueue failed");
 }
 
 void 	Server::add_kevent_struct(struct kevent k)

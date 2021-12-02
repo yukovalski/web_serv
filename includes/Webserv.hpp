@@ -14,7 +14,7 @@
 #define WEBSERV_HPP
 
 # define CONN_NUMBER 10000
-# define BUFFER_SIZE 2
+# define BUFFER_SIZE 16
 # define MAX_EVENT	128
 
 // Colors
@@ -30,6 +30,7 @@
 #include <string>
 #include <list>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <map>
 #include <set>
@@ -72,7 +73,8 @@ std::vector<t_server>	parse_config(int argc, char **argv);
 std::map<int, std::pair<std::string, int> >
 		create_listening_sockets(const std::vector<t_server>& config);
 
-int 					puterror(std::string msg, int errno_code);
+int 						puterror(std::string msg, int errno_code);
+std::map<int, std::string>*	set_error_pages(const std::vector<t_server>& config);
 
 
 #endif
