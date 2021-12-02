@@ -81,8 +81,9 @@ void 	Server::handle_events(struct kevent* events, int count)
 			continue;
 		}
 		Connection&		connection = (*_connections)[fd];
-
-		if (events[i].flags & EVFILT_READ) {
+		if (events[i].flags & EVFILT_WRITE)
+			connection.send_response();
+		else if (events[i].flags & EVFILT_READ) {
 			connection.read_request(events[i]);
 			if (connection.getStatus() == COMPLETE)
 			{
@@ -90,8 +91,6 @@ void 	Server::handle_events(struct kevent* events, int count)
 				add_to_write_track(fd);
 			}
 		}
-		else if (events[i].flags & EVFILT_WRITE)
-			connection.send_response();
 		if (connection.getCloseConnectionFlag() & SHOULD_BE_CLOSED)
 			_connections->close_connection(fd);
 	}

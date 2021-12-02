@@ -69,7 +69,7 @@ void 			Connection::check_request()
 	ss >> method >> route >> version;
 	if (method != "GET" && method != "POST" && method != "DELETE")
 	{
-		_request = (*_error_pages)[400];
+		_response = (*_error_pages)[400];
 		_status = COMPLETE;
 		_close_connection_flag = AFTER_SEND;
 	}
